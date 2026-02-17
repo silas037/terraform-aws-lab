@@ -3,11 +3,6 @@
 A professional DevOps sandbox for practicing **Infrastructure as Code (IaC)** using **Terraform** and **LocalStack**. This project allows for full AWS service emulation on a local machine without incurring any cloud costs.
 
 ---
-
-## 🏗️ Architecture
-This lab uses Docker to host a local cloud environment that Terraform communicates with directly.
-
-```mermaid
 ## 🏗️ Architecture
 This lab uses Docker to host a local cloud environment that Terraform communicates with directly.
 
