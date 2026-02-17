@@ -10,8 +10,7 @@ This lab uses Docker to host a local cloud environment that Terraform communicat
 ```mermaid
 graph LR
     subgraph "Local Machine (Intel Mac)"
-        A[Terraform Code] -->|API Calls|
-        B(LocalStack Container)
+        A[Terraform Code] -->|API Calls| B(LocalStack Container)
         B --> C[(S3 Bucket)]
         B --> D[IAM Roles]
     end
