@@ -15,6 +15,7 @@ graph LR
         B --> D["IAM Roles"]
     end
     A -.->|"Version Control"| E["GitHub Repository"]
+```
 ---
 
 ## ✅ Testing & Verification
