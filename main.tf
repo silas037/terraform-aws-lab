@@ -6,30 +6,32 @@ provider "aws" {
   skip_credentials_validation = true
   skip_metadata_api_check     = true
   skip_requesting_account_id  = true
-
+  
   endpoints {
     s3     = "http://localhost:4566"
+    ec2    = "http://localhost:4566"
     lambda = "http://localhost:4566"
     iam    = "http://localhost:4566"
     sts    = "http://localhost:4566"
   }
 }
 
-# 1. THE BUCKET
-resource "aws_s3_bucket" "my_automation_bucket" {
-  bucket = "freelance-test-bucket-sp07"
+resource "aws_s3_bucket" "secure_bucket" {
+  bucket = "my-secure-freelance-bucket"
 }
 
-# 2. THE PERMISSIONS (IAM)
 resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
+  name = "local_lambda_role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{ Action = "sts:AssumeRole", Effect = "Allow", Sid = "", Principal = { Service = "lambda.amazonaws.com" } }]
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = { Service = "lambda.amazonaws.com" }
+    }]
   })
 }
 
-# 3. THE LAMBDA FUNCTION
 resource "aws_lambda_function" "test_lambda" {
   filename      = "function.zip"
   function_name = "my-freelance-lambda"
@@ -37,3 +39,10 @@ resource "aws_lambda_function" "test_lambda" {
   handler       = "hello.handler"
   runtime       = "python3.9"
 }
+
+resource "aws_instance" "web_server" {
+  ami           = "ami-005e54dee72cc1d00"
+  instance_type = "t2.micro"
+  tags = { Name = "DevOps-Sandbox-Server" }
+}
+
