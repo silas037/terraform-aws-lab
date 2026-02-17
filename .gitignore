@@ -1,0 +1,12 @@
+# Terraform internal files
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+
+# Lambda & Test artifacts
+function.zip
+output.json
+
+# OS files
+.DS_Store
